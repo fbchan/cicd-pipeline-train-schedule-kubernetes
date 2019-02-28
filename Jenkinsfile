@@ -55,7 +55,7 @@ pipeline {
         stage('DeployAppServices') {
             steps {
                 // Deploy Application Services Again
-                milestone(1)
+                milestone(2)
                 build 'blue-apps-services'
             }
         }
