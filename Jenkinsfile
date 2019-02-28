@@ -46,7 +46,7 @@ pipeline {
                 //input 'Deploy to Production?'
                 milestone(1)
                 kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig_cloud1',
+                    kubeconfigId: 'kubeconfig_cloud2',
                     configs: 'train-schedule-kube.yaml',
                     enableConfigSubstitution: true
                 )
@@ -55,6 +55,7 @@ pipeline {
         stage('DeployAppServices') {
             steps {
                 // Deploy Application Services Again
+                milestone(1)
                 build 'blue-apps-services'
             }
         }
