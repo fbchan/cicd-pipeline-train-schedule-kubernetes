@@ -52,5 +52,11 @@ pipeline {
                 )
             }
         }
+        stage('DeployAppServices') {
+            steps {
+                // Deploy Application Services
+                build 'blue-apps-services'
+            }
+        }
     }
 }
