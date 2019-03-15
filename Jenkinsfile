@@ -38,13 +38,26 @@ pipeline {
                 }
             }
         }
-        stage('DeployToProduction') {
+        stage('DeployToProduction - cloud 1') {
             when {
                 branch 'master'
             }
             steps {
                 //input 'Deploy to Production?'
                 milestone(1)
+                kubernetesDeploy(
+                    kubeconfigId: 'kubeconfig_cloud1',
+                    configs: 'train-schedule-kube.yaml',
+                    enableConfigSubstitution: true
+                )
+            }
+        }
+        stage('DeployToProduction - cloud 2') {
+            when {
+                branch 'master'
+            }
+            steps {
+                milestone(2)
                 kubernetesDeploy(
                     kubeconfigId: 'kubeconfig_cloud2',
                     configs: 'train-schedule-kube.yaml',
@@ -55,8 +68,8 @@ pipeline {
         stage('DeployAppServices') {
             steps {
                 // Deploy Application Services Again
-                milestone(2)
-                build 'blue-apps-services'
+                //milestone(2)
+                //build 'blue-apps-services'
             }
         }
     }
