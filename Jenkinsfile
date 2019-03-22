@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE_NAME = "foobz/train-schedule"
     }
     stages {
-        stage('Build') {
+        stage('Build and Test') {
             steps {
                 echo 'Running build automation'
                 sh './gradlew build --no-daemon'
@@ -23,6 +23,12 @@ pipeline {
                         sh 'echo Hello, World!'
                     }
                 }
+            }
+        }
+        stage('Container Security Scan') {
+            steps {
+                sh 'echo "${DOCKER_IMAGE_NAME} `pwd`/Dockerfile" > anchore_images'
+                anchore name: 'anchore_images'
             }
         }
         stage('Push Docker Image') {
