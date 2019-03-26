@@ -2,6 +2,8 @@ pipeline {
     agent any
     environment {
         //Docker Hub username
+        APPS_NAME = "train"
+        FQDN = "train.foobz.com.au"
         DOCKER_IMAGE_NAME = "foobz/train-schedule"
     }
     stages {
@@ -77,6 +79,16 @@ pipeline {
                     configs: 'train-schedule-kube.yaml',
                     enableConfigSubstitution: true
                 )
+            }
+        }
+        stage('DeployAppServices - AS3') {
+            steps {
+                // Deploy AppServices with AS3
+                milestone(3)
+                build (job: "bigip-app-services-as3", 
+                       parameters: 
+                       [string(name: 'FQDN', value: FQDN),
+                       string(name: 'APPS_NAME', value: APPS_NAME)])
             }
         }
     }
