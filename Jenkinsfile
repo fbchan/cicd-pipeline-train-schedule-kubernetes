@@ -47,13 +47,6 @@ pipeline {
                 }
             }
         }
-        stage('Cleanup') {
-            steps {
-                sh'''
-                    for i in `cat anchore_images | awk '{print $1}'`;do docker rmi $i; done
-                '''
-            }
-        }
         stage('DeployToProduction - cloud 1') {
             when {
                 branch 'master'
