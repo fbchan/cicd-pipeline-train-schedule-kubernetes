@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        //Docker Hub username
+        //Docker Hub
         APPS_NAME = "train"
         FQDN = "train.foobz.com.au"
         DOCKER_IMAGE_NAME = "foobz/train-schedule"
