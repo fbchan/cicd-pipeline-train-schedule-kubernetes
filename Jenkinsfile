@@ -78,7 +78,7 @@ pipeline {
             steps {
                 // Deploy AppServices with AS3
                 milestone(3)
-                build (job: "bigip-app-services-as3-SD", 
+                build (job: "ansible-as3-app-services", 
                        parameters: 
                        [string(name: 'FQDN', value: FQDN),
                        string(name: 'APPS_NAME', value: APPS_NAME)])
