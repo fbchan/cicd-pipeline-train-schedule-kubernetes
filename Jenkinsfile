@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    triggers {
+        cron('15 10 * * *')
+    }
     environment {
         //Docker Hub
         APPS_NAME = "train"
